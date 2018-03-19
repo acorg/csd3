@@ -31,6 +31,9 @@ f=$ROOT/usr/bin/virtualenvwrapper.sh
 [ -f $f ] && . $f
 
 # Load modules.
+f=/etc/profile.d/modules.sh
+[ -f $f ] && . $f
+
 module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
 module load cuda-8.0.61-gcc-5.4.0-qa4toca
