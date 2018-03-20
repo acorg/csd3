@@ -41,7 +41,7 @@ module load rhel7/default-wilkes-LATEST
 module load rhel7/default-gpu
 
 # A function to get an RCS (Research Cold Store) equivalent directory given
-# an RDS (Research Data Store) directory.
+# an RDS (Research Data Store) or biocloud /scratch directory.
 function rcs_equiv() {
     local cwd
     case $# in
@@ -70,7 +70,47 @@ function rcs_equiv() {
             return 0
         ;;
         *)
-            echo "I do not recognize $cwd as an RDS directory." >&2
+            echo "I do not recognize $cwd as an RDS or /scratch directory." >&2
+            # Echo a non-existent directory name to hopefully make whoever
+            # called us fail if they don't check our return status and they
+            # capture our stdout and try to use it to do a cd.
+            echo /tmp/non-existent-directory-$$
+            return 1
+        ;;
+    esac
+}
+
+# A function to get an RDS (Research Data Store) equivalent directory given
+# an RCS (Research Cold Store) or biocloud /scratch directory.
+function rds_equiv() {
+    local cwd
+    case $# in
+        0)
+            cwd=$(/bin/pwd)
+        ;;
+        1)
+            case "$1" in
+                /*) cwd="$1";;
+                *) cwd="$(/bin/pwd)/$1";;
+            esac
+        ;;
+        *)
+            echo "Usage: rds_equiv [dir]" >&2
+            return 1
+        ;;
+    esac
+
+    case "$cwd" in
+        /rcs/project/djs200/rcs-djs200-acorg/bt*)
+            echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
+            return 0
+        ;;
+        /scratch/tcj25/projects*)
+            echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
+            return 0
+        ;;
+        *)
+            echo "I do not recognize $cwd as an RCS or /scratch directory." >&2
             # Echo a non-existent directory name to hopefully make whoever
             # called us fail if they don't check our return status and they
             # capture our stdout and try to use it to do a cd.
