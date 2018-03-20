@@ -65,6 +65,10 @@ function rcs_equiv() {
             echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
             return 0
         ;;
+        /scratch/tcj25/projects*)
+            echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
+            return 0
+        ;;
         *)
             echo "I do not recognize $cwd as an RDS directory." >&2
             # Echo a non-existent directory name to hopefully make whoever
