@@ -3,14 +3,17 @@
 case $(hostname) in
     login-e-[1-8])
         HOST=csd3-gpu-$(hostname | cut -f3 -d-)
+        gpu=1
         loadModules=1
     ;;
     login-e-*)
         HOST=csd3-cpu-$(hostname | cut -f3 -d-)
+        gpu=0
         loadModules=1
     ;;
     *)
         HOST=biocloud
+        gpu=0
         loadModules=0
     ;;
 esac
@@ -44,11 +47,15 @@ then
     f=/etc/profile.d/modules.sh
     [ -f $f ] && . $f
 
-    module load beast2-2.4.6-gcc-5.4.0-czr4tw6
+    module load rhel7/default-csd3
+
+    if [ $gpu -eq 1 ]
+    then
+        module load rhel7/default-gpu
+        module load cuda-8.0.61-gcc-5.4.0-qa4toca
+    fi
     module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
-    module load cuda-8.0.61-gcc-5.4.0-qa4toca
-    module load rhel7/default-wilkes-LATEST
-    module load rhel7/default-gpu
+    module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 fi
 
 # A function to get an RCS (Research Cold Store) equivalent directory given
