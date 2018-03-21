@@ -1,9 +1,18 @@
 # Generic bash setup for Barbara & Terry on the Cambridge CSD3 cluster.
 
 case $(hostname) in
-    login-e-[1-8]) HOST=csd3-gpu-$(hostname | cut -f3 -d-);;
-    login-e-*) HOST=csd3-cpu-$(hostname | cut -f3 -d-);;
-    *) HOST=biocloud;;
+    login-e-[1-8])
+        HOST=csd3-gpu-$(hostname | cut -f3 -d-)
+        loadModules=1
+    ;;
+    login-e-*)
+        HOST=csd3-cpu-$(hostname | cut -f3 -d-)
+        loadModules=1
+    ;;
+    *)
+        HOST=biocloud
+        loadModules=0
+    ;;
 esac
 
 export PS1="$HOST "'\w \$ '
@@ -30,15 +39,17 @@ export VIRTUALENVWRAPPER_PYTHON=$ROOT/bin/python
 f=$ROOT/usr/bin/virtualenvwrapper.sh
 [ -f $f ] && . $f
 
-# Load modules.
-f=/etc/profile.d/modules.sh
-[ -f $f ] && . $f
+if [ $loadModules -eq 1 ]
+then
+    f=/etc/profile.d/modules.sh
+    [ -f $f ] && . $f
 
-module load beast2-2.4.6-gcc-5.4.0-czr4tw6
-module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
-module load cuda-8.0.61-gcc-5.4.0-qa4toca
-module load rhel7/default-wilkes-LATEST
-module load rhel7/default-gpu
+    module load beast2-2.4.6-gcc-5.4.0-czr4tw6
+    module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
+    module load cuda-8.0.61-gcc-5.4.0-qa4toca
+    module load rhel7/default-wilkes-LATEST
+    module load rhel7/default-gpu
+fi
 
 # A function to get an RCS (Research Cold Store) equivalent directory given
 # an RDS (Research Data Store) or biocloud /scratch directory.
