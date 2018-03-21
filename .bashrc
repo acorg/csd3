@@ -80,6 +80,8 @@ function rcs_equiv() {
     esac
 }
 
+export -f rcs_equiv
+
 # A function to get an RDS (Research Data Store) equivalent directory given
 # an RCS (Research Cold Store) or biocloud /scratch directory.
 function rds_equiv() {
@@ -119,3 +121,5 @@ function rds_equiv() {
         ;;
     esac
 }
+
+export -f rds_equiv
