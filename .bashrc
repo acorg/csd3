@@ -48,14 +48,19 @@ then
     [ -f $f ] && . $f
 
     module load rhel7/default-csd3
+    module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 
     if [ $gpu -eq 1 ]
     then
         module load rhel7/default-gpu
         module load cuda-8.0.61-gcc-5.4.0-qa4toca
+
+        # Don't use the system BEAGLE module because it will not detect the
+        # GPU(s).
+        export export BEAGLE_EXTRA_LIBS=$ROOT/usr/local/lib
+    else
+        module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
     fi
-    module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
-    module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 fi
 
 # A function to get an RCS (Research Cold Store) equivalent directory given
