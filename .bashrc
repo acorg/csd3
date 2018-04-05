@@ -37,7 +37,8 @@ fi
 PATH="$HOME/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
-export VIRTUALENVWRAPPER_PYTHON=$ROOT/bin/python
+# I don't think this is needed.
+# export VIRTUALENVWRAPPER_PYTHON=$ROOT/usr/local/bin/python
 
 f=$ROOT/usr/bin/virtualenvwrapper.sh
 [ -f $f ] && . $f
@@ -47,6 +48,7 @@ then
     f=/etc/profile.d/modules.sh
     [ -f $f ] && . $f
 
+    module load python-3.6.1-gcc-5.4.0-64u3a4w
     module load rhel7/default-csd3
     module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 
@@ -57,7 +59,7 @@ then
 
         # Don't use the system BEAGLE module because it will not detect the
         # GPU(s).
-        export export BEAGLE_EXTRA_LIBS=$ROOT/usr/local/lib
+        export BEAGLE_EXTRA_LIBS=$ROOT/usr/local/lib
     else
         module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
     fi
