@@ -43,8 +43,13 @@ export WORKON_HOME=$ROOT/share/virtualenvs
 # I don't think this is needed.
 # export VIRTUALENVWRAPPER_PYTHON=$ROOT/usr/local/bin/python
 
-f=$ROOT/usr/bin/virtualenvwrapper.sh
-[ -f $f ] && . $f
+f=$ROOT/usr/local/bin/virtualenvwrapper.sh
+if [ -f $f ]
+then
+    . $f
+else
+    echo "Could not find virtualenvwrapper script $f" >&2
+fi
 
 if [ $loadModules -eq 1 ]
 then
