@@ -51,7 +51,7 @@ then
     f=/etc/profile.d/modules.sh
     [ -f $f ] && . $f
 
-    module load python-3.6.1-gcc-5.4.0-64u3a4w
+    module load python/3.5.1
     module load rhel7/default-csd3
     module load beast2-2.4.6-gcc-5.4.0-czr4tw6
 
