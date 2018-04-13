@@ -58,17 +58,12 @@ then
 
     module load rhel7/default-csd3
     module load beast2-2.4.6-gcc-5.4.0-czr4tw6
+    module load beagle-lib-2.1.2-gcc-4.8.5-ti5kq5r
 
     if [ $gpu -eq 1 ]
     then
         module load rhel7/default-gpu
         module load cuda-8.0.61-gcc-5.4.0-qa4toca
-
-        # Don't use the system BEAGLE module because it will not detect the
-        # GPU(s).
-        export BEAGLE_EXTRA_LIBS=$ROOT/usr/local/lib
-    else
-        module load beagle-lib-2.1.2-gcc-4.8.5-ti5kq5r
     fi
 fi
 
