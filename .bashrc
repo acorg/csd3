@@ -62,7 +62,6 @@ then
 
     if [ $gpu -eq 1 ]
     then
-        module load rhel7/default-gpu
         module load cuda-8.0.61-gcc-5.4.0-qa4toca
     fi
 fi
