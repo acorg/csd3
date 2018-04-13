@@ -1,12 +1,12 @@
 # Generic bash setup for Barbara & Terry on the Cambridge CSD3 cluster.
 
 case $(hostname) in
-    login-e-[1-8])
+    login-e-[1-8]|gpu-e-*)
         HOST=csd3-gpu-$(hostname | cut -f3 -d-)
         gpu=1
         loadModules=1
     ;;
-    login-e-*)
+    login-e-*|cpu-e-*)
         HOST=csd3-cpu-$(hostname | cut -f3 -d-)
         gpu=0
         loadModules=1
@@ -68,7 +68,7 @@ then
         # GPU(s).
         export BEAGLE_EXTRA_LIBS=$ROOT/usr/local/lib
     else
-        module load beagle-lib-2.1.2-gcc-5.4.0-fmn7glx
+        module load beagle-lib-2.1.2-gcc-4.8.5-ti5kq5r
     fi
 fi
 
