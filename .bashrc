@@ -1,5 +1,8 @@
 # Generic bash setup for Barbara & Terry on the Cambridge CSD3 cluster.
 
+# Newly created files should be group writable.
+umask 002
+
 case $(hostname) in
     login-e-[1-8]|gpu-e-*)
         HOST=csd3-gpu-$(hostname | cut -f3 -d-)
