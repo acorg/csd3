@@ -59,7 +59,6 @@ then
     f=/etc/profile.d/modules.sh
     [ -f $f ] && . $f
 
-    module load rhel7/default-csd3
     module load beast2-2.4.6-gcc-5.4.0-czr4tw6
     module load beagle-lib-2.1.2-gcc-4.8.5-ti5kq5r
 
