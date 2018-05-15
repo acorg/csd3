@@ -7,17 +7,13 @@ case $(hostname) in
     login-e-[1-8]|gpu-e-*)
         HOST=csd3-gpu-$(hostname | cut -f3 -d-)
         gpu=1
-        loadModules=1
     ;;
     login-e-*|cpu-e-*)
         HOST=csd3-cpu-$(hostname | cut -f3 -d-)
         gpu=0
-        loadModules=1
     ;;
     *)
-        HOST=biocloud
-        gpu=0
-        loadModules=0
+        echo "Warning: your hostname $(hostname) is not recognized!" >&2
     ;;
 esac
 
@@ -25,12 +21,6 @@ export PS1="$HOST "'\w \$ '
 export PS2="> "
 
 ROOT=/rds/project/djs200/rds-djs200-acorg/bt/root
-
-if [ ! -d $ROOT ]
-then
-    # This is only temporary, for biocloud.
-    ROOT=/scratch/tcj25/root
-fi
 
 if [ ! -d $ROOT ]
 then
@@ -54,10 +44,10 @@ else
     echo "Could not find virtualenvwrapper script $f" >&2
 fi
 
-if [ $loadModules -eq 1 ]
+f=/etc/profile.d/modules.sh
+if [ -f $f ]
 then
-    f=/etc/profile.d/modules.sh
-    [ -f $f ] && . $f
+    . $f
 
     module load beast2-2.4.6-gcc-5.4.0-czr4tw6
     module load beagle-lib-2.1.2-gcc-4.8.5-ti5kq5r
@@ -66,10 +56,12 @@ then
     then
         module load cuda-8.0.61-gcc-5.4.0-qa4toca
     fi
+else
+    echo "Warning: Module setup script $f does not exist!" >&2
 fi
 
 # A function to get an RCS (Research Cold Store) equivalent directory given
-# an RDS (Research Data Store) or biocloud /scratch directory.
+# an RDS (Research Data Store) directory.
 function rcs_equiv() {
     local cwd
     case $# in
@@ -93,14 +85,6 @@ function rcs_equiv() {
             echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
             return 0
         ;;
-        /scratch/tcj25/projects*)
-            echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
-            return 0
-        ;;
-        /biocld1/tcj25/projects*)
-            echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
-            return 0
-        ;;
         *)
             echo "I do not recognize $cwd as an RDS or /scratch directory." >&2
             # Echo a non-existent directory name to hopefully make whoever
@@ -115,7 +99,7 @@ function rcs_equiv() {
 export -f rcs_equiv
 
 # A function to get an RDS (Research Data Store) equivalent directory given
-# an RCS (Research Cold Store) or biocloud /scratch directory.
+# an RCS (Research Cold Store) directory.
 function rds_equiv() {
     local cwd
     case $# in
@@ -137,14 +121,6 @@ function rds_equiv() {
     case "$cwd" in
         /rcs/project/djs200/rcs-djs200-acorg/bt*)
             echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
-            return 0
-        ;;
-        /scratch/tcj25/projects*)
-            echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
-            return 0
-        ;;
-        /biocld1/tcj25/projects*)
-            echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c15-)
             return 0
         ;;
         *)
