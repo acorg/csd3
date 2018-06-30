@@ -135,3 +135,16 @@ function rds_equiv() {
 }
 
 export -f rds_equiv
+
+# A function to cd to the equivalent location in the 'other' storage type.
+# I.e., to easily switch back and forth between RDS and RCS.
+function cdo() {
+    local cwd=$(/bin/pwd)
+    case "$cwd" in
+        /rcs/*) cd $(rds_equiv);;
+        /rds/*) cd $(rcs_equiv);;
+        *) echo "I do not recognize $cwd as an RDS or RCS directory." >&2;;
+    esac
+}
+
+export -f cdo
