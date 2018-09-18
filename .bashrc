@@ -3,6 +3,9 @@
 # Newly created files should be group writable.
 umask 002
 
+# Make things sort in a sensible way (by bytes).
+export LC_ALL=C
+
 case $(hostname) in
     login-e-[1-8]|gpu-e-*)
         HOST=csd3-gpu-$(hostname | cut -f3 -d-)
