@@ -55,11 +55,11 @@ args = parser.parse_args()
 if args.dryRun:
     args.keep = True
 
-(fd, filename) = mkstemp(prefix='sbatch-commands-', suffix='.txt', text=True)
+(fd, filename) = mkstemp(prefix='sbatch-commands-', suffix='.sh', text=True)
 fp = os.fdopen(fd, 'w')
 
 try:
-    print('#!/bin/bash -e', file=fp)
+    print('#!/bin/bash -e', end='\n\n', file=fp)
     print('#SBATCH -J', args.job, file=fp)
     print('#SBATCH -A', args.account, file=fp)
     print('#SBATCH -o', args.out, file=fp)
@@ -91,6 +91,11 @@ executor.execute('sbatch ' + filename)
 
 if args.dryRun:
     print('\n'.join(executor.log))
+else:
+    for line in executor.log:
+        if line.startswith('Submitted'):
+            print(line)
+            break
 
 if args.keep:
     print('sbatch script saved to %s' % filename)
