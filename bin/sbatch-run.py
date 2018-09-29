@@ -82,6 +82,9 @@ try:
 finally:
     fp.close()
 
+# Make the file executable else sbatch won't run it.
+os.chmod(filename, 0o755)
+
 executor = Executor(args.dryRun)
 
 executor.execute('sbatch ' + filename)
