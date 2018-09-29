@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 import sys
 import os
 from os.path import basename
@@ -87,15 +89,12 @@ os.chmod(filename, 0o755)
 
 executor = Executor(args.dryRun)
 
-executor.execute('sbatch ' + filename)
+result = executor.execute('sbatch ' + filename)
 
 if args.dryRun:
     print('\n'.join(executor.log))
 else:
-    for line in executor.log:
-        if line.startswith('Submitted'):
-            print(line)
-            break
+    print(result.stdout)
 
 if args.keep:
     print('sbatch script saved to %s' % filename)
