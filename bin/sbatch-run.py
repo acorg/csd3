@@ -94,7 +94,7 @@ result = executor.execute('sbatch ' + filename)
 if args.dryRun:
     print('\n'.join(executor.log))
 else:
-    print(result.stdout)
+    print(result.stdout, end='')
 
 if args.keep:
     print('sbatch script saved to %s' % filename)
