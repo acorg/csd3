@@ -2,6 +2,7 @@
 
 import sys
 import os
+from os.path import basename
 from tempfile import mkstemp
 import argparse
 
@@ -30,7 +31,7 @@ parser.add_argument(
     help='If given, keep the sbatch submission file and print its path.')
 
 parser.add_argument(
-    '--job', default=sys.argv[0],
+    '--job', default=basename(sys.argv[0]),
     help='The job id passed with -J to sbatch.')
 
 parser.add_argument(
