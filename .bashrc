@@ -23,14 +23,15 @@ esac
 export PS1="$HOST "'\w \$ '
 export PS2="> "
 
-ROOT=/rds/project/djs200/rds-djs200-acorg/bt/root
+BT=/rds/project/djs200/rds-djs200-acorg/bt
+ROOT=$BT/root
 
 if [ ! -d $ROOT ]
 then
     echo "Warning: could not find $ROOT directory!" >&2
 fi
 
-PATH="$HOME/bin:$ROOT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
+PATH="$HOME/bin:$BT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 # Our virtual environments are shared.
