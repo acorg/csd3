@@ -30,14 +30,11 @@ then
     echo "Warning: could not find $ROOT directory!" >&2
 fi
 
-PATH="$HOME/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
+PATH="$HOME/bin:$ROOT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 # Our virtual environments are shared.
 export WORKON_HOME=$ROOT/share/virtualenvs
-
-# I don't think this is needed.
-# export VIRTUALENVWRAPPER_PYTHON=$ROOT/usr/local/bin/python
 
 f=$ROOT/usr/local/bin/virtualenvwrapper.sh
 if [ -f $f ]
