@@ -61,7 +61,8 @@ if args.dryRun:
 fp = os.fdopen(fd, 'w')
 
 try:
-    print('#!/bin/bash -e', end='\n\n', file=fp)
+    print('#!/bin/bash', end='\n\n', file=fp)
+    print('set -Eeuo pipefail', end='\n\n', file=fp)
     print('#SBATCH -J', args.job, file=fp)
     print('#SBATCH -A', args.account, file=fp)
     print('#SBATCH -o', args.out, file=fp)
