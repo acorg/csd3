@@ -21,13 +21,11 @@ function run()
 {
     if test $simulate -eq 0
     then
-        echo eval "$@"
+        eval "$@"
     else
         echo "    $@"
     fi
 }
-
-run date
 
 for path in "$@"
 do
