@@ -62,16 +62,15 @@ fp = os.fdopen(fd, 'w')
 
 try:
     print('#!/bin/bash', end='\n\n', file=fp)
-    print('set -Eeuo pipefail', end='\n\n', file=fp)
     print('#SBATCH -J', args.job, file=fp)
     print('#SBATCH -A', args.account, file=fp)
     print('#SBATCH -o', args.out, file=fp)
     print('#SBATCH -p', args.partition, file=fp)
     print('#SBATCH --time=%s' % args.time, file=fp)
     if args.exclusive:
-        print('#SBATCH --exclusive', file=fp)
+        print('#SBATCH --exclusive', end='\n\n', file=fp)
 
-    print(file=fp)
+    print('set -Eeuo pipefail', end='\n\n', file=fp)
 
     if args.args:
         print(' '.join(args.args), file=fp)
