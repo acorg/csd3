@@ -31,7 +31,7 @@ then
     echo "Warning: could not find $ROOT directory!" >&2
 fi
 
-PATH="$HOME/bin:$BT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$PATH"
+PATH="$HOME/bin:$BT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 # Our virtual environments are shared.
