@@ -121,7 +121,12 @@ try:
     print('#SBATCH -p', args.partition, file=fp)
     print('#SBATCH --time=%s' % args.time, file=fp)
     if args.exclusive:
-        print('#SBATCH --exclusive', end='\n\n', file=fp)
+        print('#SBATCH --exclusive', file=fp)
+    if args.gpu:
+        print('#SBATCH --nodes=1', file=fp)
+        print('#SBATCH --gres=gpu:4', file=fp)
+
+    print(file=fp)
 
     print('set -Eeuo pipefail', end='\n\n', file=fp)
 
