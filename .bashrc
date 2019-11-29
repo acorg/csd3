@@ -34,7 +34,6 @@ then
 fi
 
 PATH="$HOME/bin:$BT/csd3/bin:$BT2/projects/charite/bih-pipeline/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
-PYTHONPATH="$BT2/projects/charite/bih-pipeline"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 # Our virtual environments are shared.
