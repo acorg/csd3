@@ -24,6 +24,8 @@ export PS1="$HOST "'\w \$ '
 export PS2="> "
 
 BT=/rds/project/djs200/rds-djs200-acorg/bt
+BT2=/rds/project/djs200/rds-djs200-acorg2/bt
+
 ROOT=$BT/root
 
 if [ ! -d $ROOT ]
@@ -31,7 +33,7 @@ then
     echo "Warning: could not find $ROOT directory!" >&2
 fi
 
-PATH="$HOME/bin:$BT/csd3/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
+PATH="$HOME/bin:$BT/csd3/bin:$BT2/projects/charite/bih-pipeline/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 # Our virtual environments are shared.
