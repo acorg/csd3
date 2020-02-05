@@ -45,7 +45,7 @@ parser.add_argument(
 parser.add_argument(
     '--account',
     help=('The account name, passed with -A to sbatch. Default is '
-          'ACORG-SL2-GPU if --gpu is given, else ACORG-SL2-CPU.'))
+          'DSMITH-SL2-GPU if --gpu is given, else ACORG-SL2-CPU.'))
 
 parser.add_argument(
     '--out', default='slurm-%A.out',
@@ -64,7 +64,7 @@ parser.add_argument(
 parser.add_argument(
     '--gpu', action='store_true', default=False,
     help=('If given, schedule on a GPU machine (causes --partition to become '
-          'pascal, --exclusive to be set, --account to be ACORG-SL2-GPU.'))
+          'pascal, --exclusive to be set, --account to be DSMITH-SL2-GPU.'))
 
 parser.add_argument(
     '--beast2', action='store_true', default=False,
@@ -102,7 +102,7 @@ if args.beast2 and len(args.args) == 1:
 
 if args.gpu:
     args.exclusive = True
-    args.account = args.account or 'ACORG-SL2-GPU'
+    args.account = args.account or 'DSMITH-SL2-GPU'
     args.partition = args.partition or 'pascal'
     args.time = args.time or '11:50:00'
 else:
