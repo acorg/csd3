@@ -35,6 +35,10 @@ parser.add_argument(
     help='If given, keep the sbatch submission file and print its path.')
 
 parser.add_argument(
+    '--cat', action='store_true', default=False,
+    help='If given, cat the sbatch submission file.')
+
+parser.add_argument(
     '--force', action='store_true', default=False,
     help='If given, use -overwrite when calling beast2 (via --beast2).')
 
@@ -63,7 +67,10 @@ parser.add_argument(
 
 parser.add_argument(
     '--beast2args',
-    help='Extra arguments to pass to beast2 (only used if --beast2 is given).')
+    help=('Extra arguments to pass to beast2 (only used if --beast2 is '
+          'given). Use --beast2args=-continue (for example) if your args '
+          'start with a hyphen, as they probably do, otherwise the Python '
+          'argparse module will not parse the command line properly.'))
 
 parser.add_argument(
     '--gpu', action='store_true', default=False,
@@ -167,6 +174,9 @@ if args.dryRun:
     print('\n'.join(executor.log))
 else:
     print(result.stdout, end='')
+
+if args.cat:
+    print(open(filename).read())
 
 if args.keep:
     print('sbatch script saved to %s' % filename)
