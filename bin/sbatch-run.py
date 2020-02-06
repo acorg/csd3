@@ -62,6 +62,10 @@ parser.add_argument(
           '11:50:00 if --gpu is given, else 1:00:00'))
 
 parser.add_argument(
+    '--beast2args',
+    help='Extra arguments to pass to beast2 (only used if --beast2 is given).')
+
+parser.add_argument(
     '--gpu', action='store_true', default=False,
     help=('If given, schedule on a GPU machine (causes --partition to become '
           'pascal, --exclusive to be set, --account to be DSMITH-SL2-GPU.'))
@@ -94,6 +98,9 @@ if args.beast2 and len(args.args) == 1:
         '-beagle',
         '-beagle_GPU',
     ]
+
+    if args.beast2args:
+        args.args.append(args.beast2args)
 
     if args.force:
         args.args.append('-overwrite')
