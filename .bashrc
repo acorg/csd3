@@ -38,6 +38,10 @@ LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 export PYTHONPATH="$BT/projects/eske/voldemort-repo"
 
+# PICARD_JAR is used by the dark-matter run-bowtie2.py script so the user
+# doesn't need to specify --picardJar on the command line.
+export PICARD_JAR=/rds/project/djs200/rds-djs200-acorg/bt/packages/picard.jar
+
 # Our virtual environments are shared.
 export WORKON_HOME=$ROOT/share/virtualenvs
 
