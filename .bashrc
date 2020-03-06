@@ -33,7 +33,7 @@ then
     echo "Warning: could not find $ROOT directory!" >&2
 fi
 
-PATH="$HOME/bin:$BT/csd3/bin:$BT/projects/eske/voldemort-repo/bin:$BT2/projects/charite/bih-pipeline/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
+PATH="$HOME/bin:$BT/csd3/bin:$BT/projects/eske/voldemort-repo/bin:$BT2/projects/charite/bih-pipeline/bin:$BT2/projects/charite/csd3-pipeline/bin:$ROOT/usr/local/bin:$ROOT/bin:$ROOT/usr/bin:$ROOT/usr/local/edirect:$PATH"
 LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/usr/local/lib"
 
 export PYTHONPATH="$BT/projects/eske/voldemort-repo"
