@@ -75,7 +75,7 @@ parser.add_argument(
 parser.add_argument(
     '--gpu', action='store_true', default=False,
     help=('If given, schedule on a GPU machine (causes --partition to become '
-          'pascal, --exclusive to be set, --account to be DSMITH-SL2-GPU.'))
+          'pascal, --exclusive to be set, --account to be DSMITH-SL2-GPU).'))
 
 parser.add_argument(
     '--beast2', action='store_true', default=False,
