@@ -41,15 +41,8 @@ do
 
         if [ -f "$dest" ]
         then
-            # Check the first char of $dest to see whether we should make
-            # an absolute or relative link.
-            case "$dest" in
-                /*) rFlag= ;;
-                *) rFlag=-r ;;
-            esac
-
             run rm "$file"
-            run ln $rFlag -s "$dest" "$file"
+            run cp "$dest" "$file"
         else
             echo "    Is a symbolic link to '$dest', which doesn't exist! Skipping."
         fi
