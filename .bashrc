@@ -94,8 +94,12 @@ function rcs_equiv() {
             echo "/rcs/project/djs200/rcs-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
             return 0
         ;;
+        /rds/project/djs200/rds-djs200-acorg2/bt*)
+            echo "/rcs/project/djs200/rcs-djs200-acorg/bt2"$(echo "$cwd" | cut -c41-)
+            return 0
+        ;;
         *)
-            echo "I do not recognize $cwd as an RDS or /scratch directory." >&2
+            echo "I do not recognize $cwd as an RDS directory." >&2
             # Echo a non-existent directory name to hopefully make whoever
             # called us fail if they don't check our return status and they
             # capture our stdout and try to use it to do a cd.
@@ -128,12 +132,17 @@ function rds_equiv() {
     esac
 
     case "$cwd" in
+        # Make sure the bt2 pattern comes first here!
+        /rcs/project/djs200/rcs-djs200-acorg/bt2*)
+            echo "/rds/project/djs200/rds-djs200-acorg2/bt"$(echo "$cwd" | cut -c41-)
+            return 0
+        ;;
         /rcs/project/djs200/rcs-djs200-acorg/bt*)
             echo "/rds/project/djs200/rds-djs200-acorg/bt"$(echo "$cwd" | cut -c40-)
             return 0
         ;;
         *)
-            echo "I do not recognize $cwd as an RCS or /scratch directory." >&2
+            echo "I do not recognize $cwd as an RCS directory." >&2
             # Echo a non-existent directory name to hopefully make whoever
             # called us fail if they don't check our return status and they
             # capture our stdout and try to use it to do a cd.
